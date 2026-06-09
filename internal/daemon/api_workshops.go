@@ -436,6 +436,8 @@ func launch(ctx context.Context, mgr *workshopstate.WorkshopManager, reqData *wo
 		return nil, nil, err
 	}
 
+	mgr.WarnSdkProjectExposure(project, manifests)
+
 	tasksets, err := mgr.LaunchMany(ctx, project, manifests)
 	return manifests, tasksets, err
 }
@@ -463,6 +465,8 @@ func refresh(ctx context.Context, mgr *workshopstate.WorkshopManager, reqData *w
 	if err != nil {
 		return nil, nil, nil, err
 	}
+
+	mgr.WarnSdkProjectExposure(project, latest)
 
 	tasksets, err = mgr.RefreshMany(ctx, project, current, latest, refreshOption)
 	if err != nil {
